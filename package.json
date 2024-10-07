@@ -1,0 +1,14 @@
+{
+  "name": "postman-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run AutomationExercise-Collection.postman_collection.json"
+  },
+  "author": "Jongita <jurgitajonaityte@gmail.com> (https://github.com/jongita)",
+  "license": "MIT",
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}
