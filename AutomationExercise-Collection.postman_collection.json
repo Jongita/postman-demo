@@ -17,23 +17,9 @@
 							"  pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response contains products\", function () {\r",
-							"    const data = pm.response.json();\r",
-							"    \r",
-							"    // Check if 'products' array exists and has at least one product\r",
-							"    pm.expect(data.products).to.be.an('array').that.is.not.empty;\r",
-							"    \r",
-							"    // Check if the first product has a name, id, price, brand and category)\r",
-							"    pm.expect(data.products[0]).to.have.property('name');\r",
-							"    pm.expect(data.products[0]).to.have.property('id');\r",
-							"    pm.expect(data.products[0]).to.have.property('price');\r",
-							"    pm.expect(data.products[0]).to.have.property('brand');\r",
-							"    pm.expect(data.products[0]).to.have.property('category');\r",
-							"});\r",
-							"\r",
 							"pm.test(\"Response body has the correct format\", function () {\r",
 							"    // Parse the response JSON\r",
-							"    var jsonData = pm.response.json();\r",
+							"    const jsonData = pm.response.json();\r",
 							"\r",
 							"    // Check if the response contains \"responseCode\" and \"products\"\r",
 							"    pm.expect(jsonData).to.have.property(\"responseCode\");\r",
@@ -85,10 +71,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Response status code is 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
 							"\r",
 							"// Test to check the response body for correct responseCode and message\r",
 							"pm.test(\"Response body has correct responseCode and message\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
+							"    const jsonData = pm.response.json();\r",
 							"    \r",
 							"    // Check if responseCode is 405\r",
 							"    pm.expect(jsonData.responseCode).to.eql(405);\r",
@@ -119,6 +108,112 @@
 					"path": [
 						"api",
 						"productsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Brands List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check that the status code is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response body\r",
+							"let dataJson = pm.response.json();\r",
+							"\r",
+							"// Check that the response contains the 'brands' property\r",
+							"pm.test(\"Response has 'brands' property\", function () {\r",
+							"    pm.expect(dataJson).to.have.property('brands');\r",
+							"});\r",
+							"\r",
+							"// Check that 'brands' is an array\r",
+							"pm.test(\"'brands' is an array\", function () {\r",
+							"    pm.expect(dataJson.brands).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"// Check that 'brands' array is not empty\r",
+							"pm.test(\"'brands' array is not empty\", function () {\r",
+							"    pm.expect(dataJson.brands).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"// Check that each brand object has the required properties\r",
+							"pm.test(\"Each brand has 'id' and 'brand' properties\", function () {\r",
+							"    dataJson.brands.forEach(function(brand) {\r",
+							"        pm.expect(brand).to.have.all.keys('id', 'brand');\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://automationexercise.com/api/brandsList",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"brandsList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT To All Brands Listuest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body\r",
+							"let dataJson = pm.response.json();\r",
+							"\r",
+							"// Check that the response code is 200\r",
+							"pm.test(\"Response code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"// Check that the response message is as expected\r",
+							"pm.test(\"Response message is correct\", function () {\r",
+							"    pm.expect(dataJson).to.deep.equal({\r",
+							"        responseCode: 405,\r",
+							"        message: \"This request method is not supported.\"\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://automationexercise.com/api/brandsList",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"brandsList"
 					]
 				}
 			},
@@ -156,7 +251,7 @@
 							"});\r",
 							"\r",
 							"// Parse response JSON\r",
-							"var jsonData = pm.response.json();\r",
+							"const jsonData = pm.response.json();\r",
 							"\r",
 							"// Test if response has responseCode and it's 200\r",
 							"pm.test(\"Response has responseCode 200\", function () {\r",
