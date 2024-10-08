@@ -8,12 +8,12 @@ This project contains Postman collections for testing the [Automation Exercise](
 
 ## 🎯 Project Features
 
-**Retrieve Product Lists:** Fetch all product listings from the API.
-**Retrieve Brand Lists:** Fetch all brands available on the website.
-**Search Products:** Search for products by a specific keyword.
-**Create User Account:** Automate the creation of new user accounts.
-**Delete User Account:** Automate the deletion of existing user accounts.
-**Error Handling:** Test unsupported HTTP methods like POST and PUT on certain endpoints
+-   **Retrieve Product Lists:** Fetch all product listings from the API.
+-   **Retrieve Brand Lists:** Fetch all brands available on the website.
+-   **Search Products:** Search for products by a specific keyword.
+-   **Create User Account:** Automate the creation of new user accounts.
+-   **Delete User Account:** Automate the deletion of existing user accounts.
+-   **Error Handling:** Test unsupported HTTP methods like POST and PUT on certain endpoints
 
 ## 🧪 Test Cases
 
@@ -56,6 +56,10 @@ Would you like to run this project locally? Open your terminal and follow these 
     ```sh
     npm run test
     ```
+
+## 🎓 Viewing Test Reports
+
+Once the tests are executed in a CI/CD environment (e.g., GitHub Actions), the HTML report is generated and saved in the testResults folder. You can view the test results by downloading the report from the CI artifact section.
 
 ## 🎉 Conclusion
 
