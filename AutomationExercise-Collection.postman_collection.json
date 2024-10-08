@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Get All Products List",
+			"name": "All Products List",
 			"event": [
 				{
 					"listen": "test",
@@ -17,8 +17,7 @@
 							"  pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"Response body has the correct format\", function () {\r",
-							"    // Parse the response JSON\r",
+							"pm.test(\"Response body has the correct format\", () => {\r",
 							"    const jsonData = pm.response.json();\r",
 							"\r",
 							"    // Check if the response contains \"responseCode\" and \"products\"\r",
@@ -76,7 +75,7 @@
 							"});\r",
 							"\r",
 							"// Test to check the response body for correct responseCode and message\r",
-							"pm.test(\"Response body has correct responseCode and message\", function () {\r",
+							"pm.test(\"Response body has correct responseCode and message\",  () => {\r",
 							"    const jsonData = pm.response.json();\r",
 							"    \r",
 							"    // Check if responseCode is 405\r",
@@ -114,37 +113,35 @@
 			"response": []
 		},
 		{
-			"name": "Get All Brands List",
+			"name": "All Brands List",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Check that the status code is 200\r",
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Status code is 200\",  () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
-							"// Parse the response body\r",
 							"let dataJson = pm.response.json();\r",
 							"\r",
 							"// Check that the response contains the 'brands' property\r",
-							"pm.test(\"Response has 'brands' property\", function () {\r",
+							"pm.test(\"Response has 'brands' property\",  () => {\r",
 							"    pm.expect(dataJson).to.have.property('brands');\r",
 							"});\r",
 							"\r",
 							"// Check that 'brands' is an array\r",
-							"pm.test(\"'brands' is an array\", function () {\r",
+							"pm.test(\"'brands' is an array\",  () => {\r",
 							"    pm.expect(dataJson.brands).to.be.an('array');\r",
 							"});\r",
 							"\r",
 							"// Check that 'brands' array is not empty\r",
-							"pm.test(\"'brands' array is not empty\", function () {\r",
+							"pm.test(\"'brands' array is not empty\",  () => {\r",
 							"    pm.expect(dataJson.brands).to.not.be.empty;\r",
 							"});\r",
 							"\r",
 							"// Check that each brand object has the required properties\r",
-							"pm.test(\"Each brand has 'id' and 'brand' properties\", function () {\r",
+							"pm.test(\"Each brand has 'id' and 'brand' properties\",  () => {\r",
 							"    dataJson.brands.forEach(function(brand) {\r",
 							"        pm.expect(brand).to.have.all.keys('id', 'brand');\r",
 							"    });\r",
@@ -174,26 +171,24 @@
 			"response": []
 		},
 		{
-			"name": "PUT To All Brands Listuest",
+			"name": "PUT To All Brands List",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"// Parse the response body\r",
-							"let dataJson = pm.response.json();\r",
-							"\r",
-							"// Check that the response code is 200\r",
-							"pm.test(\"Response code is 200\", function () {\r",
+							"pm.test(\"Response code is 200\",  () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
 							"});\r",
 							"\r",
-							"// Check that the response message is as expected\r",
-							"pm.test(\"Response message is correct\", function () {\r",
-							"    pm.expect(dataJson).to.deep.equal({\r",
-							"        responseCode: 405,\r",
-							"        message: \"This request method is not supported.\"\r",
-							"    });\r",
+							"pm.test(\"Response body has correct responseCode and message\",  () => {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    \r",
+							"    // Check if responseCode is 405\r",
+							"    pm.expect(jsonData.responseCode).to.eql(405);\r",
+							"    \r",
+							"    // Check if message is \"This request method is not supported.\"\r",
+							"    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");\r",
 							"});"
 						],
 						"type": "text/javascript",
@@ -226,17 +221,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"const productValues = [\"jean\", \"top\", \"tshirt\"];\r",
-							"let index = pm.variables.get(\"product_index\") || 0;\r",
-							"\r",
-							"pm.variables.set(\"search_product\", productValues[index]);\r",
-							"index++;\r",
-							"\r",
-							"if (index < productValues.length) {\r",
-							"    pm.variables.set(\"product_index\", index);\r",
-							"} else {\r",
-							"    pm.variables.unset(\"product_index\");\r",
-							"}"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -246,26 +231,25 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Status code is 200\",  () => {\r",
 							"    pm.response.to.have.status(200); \r",
 							"});\r",
 							"\r",
-							"// Parse response JSON\r",
-							"const jsonData = pm.response.json();\r",
+							"let jsonData = pm.response.json();\r",
 							"\r",
 							"// Test if response has responseCode and it's 200\r",
-							"pm.test(\"Response has responseCode 200\", function () {\r",
+							"pm.test(\"Response has responseCode 200\",  () => {\r",
 							"    pm.expect(jsonData.responseCode).to.eql(200);\r",
 							"});\r",
 							"\r",
 							"// Test if products array exists and is not empty\r",
-							"pm.test(\"Products array exists and is not empty\", function () {\r",
+							"pm.test(\"Products array exists and is not empty\",  () => {\r",
 							"    pm.expect(jsonData.products).to.be.an('array').that.is.not.empty;\r",
 							"});\r",
 							"\r",
 							"// Loop through products to check required properties\r",
 							"jsonData.products.forEach(function (product) {\r",
-							"    pm.test(\"Product has required properties\", function () {\r",
+							"    pm.test(\"Product has required properties\", () => {\r",
 							"        pm.expect(product).to.have.property(\"id\");\r",
 							"        pm.expect(product).to.have.property(\"name\");\r",
 							"        pm.expect(product).to.have.property(\"price\");\r",
@@ -291,7 +275,7 @@
 					"formdata": [
 						{
 							"key": "search_product",
-							"value": "{{search_product}}",
+							"value": "top",
 							"type": "text"
 						}
 					]
@@ -310,6 +294,260 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create User Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Check if the response code is 200\r",
+							"pm.test(\"Response code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response body\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if responseCode is 201\r",
+							"pm.test(\"Response contains responseCode 201\", () => {\r",
+							"    pm.expect(jsonData.responseCode).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"// Check if message is \"User created!\"\r",
+							"pm.test(\"Response contains message 'User created!'\", () => {\r",
+							"    pm.expect(jsonData.message).to.eql(\"User created!\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let randomEmail = `user_${Math.random().toString(36).substring(2, 12)}@test.com`;\r",
+							"pm.environment.set(\"randomEmail\", randomEmail);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{randomEmail}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Mr",
+							"type": "text"
+						},
+						{
+							"key": "birth_date",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "birth_month",
+							"value": "03",
+							"type": "text"
+						},
+						{
+							"key": "birth_year",
+							"value": "1990",
+							"type": "text"
+						},
+						{
+							"key": "firstname",
+							"value": "John",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "Johaness",
+							"type": "text"
+						},
+						{
+							"key": "company",
+							"value": "Comp ",
+							"type": "text"
+						},
+						{
+							"key": "address1",
+							"value": "1234 Main St",
+							"type": "text"
+						},
+						{
+							"key": "address2",
+							"value": "Apt 101",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "United States",
+							"type": "text"
+						},
+						{
+							"key": "zipcode",
+							"value": "90210",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "California",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Beverly Hills",
+							"type": "text"
+						},
+						{
+							"key": "mobile_number",
+							"value": "+1234567890",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/createAccount",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"createAccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body\r",
+							"let responseJson = pm.response.json();\r",
+							"\r",
+							"// Check that the status code is 200\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check that the responseCode is 200\r",
+							"pm.test(\"Response has responseCode 200\", () => {\r",
+							"    pm.expect(responseJson.responseCode).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"// Check that the message is \"Account deleted!\"\r",
+							"pm.test(\"Response message is 'Account deleted!'\", () => {\r",
+							"    pm.expect(responseJson.message).to.equal(\"Account deleted!\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "{{randomEmail}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://automationexercise.com/api/deleteAccount",
+					"protocol": "https",
+					"host": [
+						"automationexercise",
+						"com"
+					],
+					"path": [
+						"api",
+						"deleteAccount"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "randomEmail",
+			"value": "{{randomEmail}}",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
