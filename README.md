@@ -46,10 +46,6 @@ Would you like to run this project locally? Open your terminal and follow these 
     ```
 2. Install NPM packages
     ```sh
-    npm i
-    ```
-    or
-    ```sh
     npm install
     ```
 3. Running Tests with Newman
