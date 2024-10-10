@@ -23,7 +23,7 @@ This project contains Postman collections for testing the [Automation Exercise](
 4. **PUT To All Brands List** Tests unsupported PUT request on brands.
 5. **POST To Search Product** Searches for products based on a keyword.
 6. **POST To Create/Register User Account** Creates a new user account.
-7. **DELETE METHOD To Delete User Account** Deletes an existing user account.
+7. **DELETE User Account** Deletes an existing user account.
 
 ## 🧰 Getting Started
 
